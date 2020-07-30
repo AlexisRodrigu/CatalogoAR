@@ -4,39 +4,36 @@ using UnityEngine;
 
 public class EdecanController : MonoBehaviour
 {
-    Animator anim;
+    private Animator anim;
     public GameObject aceite;
-   [SerializeField] bool dancing = false;
-    string[] names = new string[3] { "DanceOne", "DanceTwo", "DanceThree" };
+    [SerializeField] private bool dancing = false;
+    private string[] names = new string[3] { "DanceOne", "DanceTwo", "DanceThree" };
 
-
-    string clipName;
-    AnimatorClipInfo[] clipInfo;
-    float clipDuration;
-    string idle = "Idle";
-
+    private string clipName;
+    private AnimatorClipInfo[] clipInfo;
+    private float clipDuration;
+    private string idle = "Idle";
     //Musica
+    private AudioSource audioS;
     public AudioClip[] otherClip;
-    AudioSource audioS;
-    bool puedesTocar;
+    private bool puedesTocar;
+
+    public bool Dancing { get => dancing; }
 
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
-       audioS = GetComponent<AudioSource>();
+        audioS = GetComponent<AudioSource>();
     }
     public void Update()
     {
         Comprobar();
     }
-
     private void OnMouseDown()
     {
         puedesTocar = true;
-        
-       anim.SetTrigger(names[Random.Range(0, 3)]);
-      
-        Com();
+        anim.SetTrigger(names[Random.Range(0, 3)]);
+        Tocando();
     }
 
     void Comprobar()
@@ -49,7 +46,6 @@ public class EdecanController : MonoBehaviour
         {
             dancing = false;
             aceite.SetActive(true);
-          
         }
         else
         {
@@ -57,11 +53,10 @@ public class EdecanController : MonoBehaviour
             aceite.SetActive(false);
         }
     }
-    void Com()
+    void Tocando()
     {
         if (puedesTocar == true)
         {
-          
             audioS.clip = otherClip[Random.Range(0, 4)];
             audioS.Play();
             Debug.Log(puedesTocar);

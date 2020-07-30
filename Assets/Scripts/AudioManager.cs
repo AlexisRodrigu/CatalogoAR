@@ -9,7 +9,6 @@ public class AudioManager : MonoBehaviour
     IEnumerator Start()
     {
         AudioSource audio = GetComponent<AudioSource>();
-
         audio.Play();
         yield return new WaitForSeconds(audio.clip.length);
         audio.clip = otherClip;
